@@ -8,7 +8,9 @@ import { BsFileBarGraphFill } from "react-icons/bs";
 import { FaUserEdit } from "react-icons/fa";
 import { FaUserLock } from "react-icons/fa";
 import { TbLogout } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { TbLogin2 } from "react-icons/tb";
+import { AiOutlineUsergroupAdd } from "react-icons/ai";
+import { NavLink } from "react-router-dom";
 import { useAuthContext } from "../store/AuthContext";
 
 const menuIcons = {
@@ -42,10 +44,10 @@ const Sidebar = () => {
       const formattedMenuItem = convertToUrlString(menuItem);
       return (
         <li key={formattedMenuItem}>
-          <Link to={`/${formattedMenuItem}`}>
+          <NavLink to={`/${formattedMenuItem}`}>
             {menuIcons[formattedMenuItem]}
             <span>{menuItem}</span>
-          </Link>
+          </NavLink>
         </li>
       );
     });
@@ -60,7 +62,22 @@ const Sidebar = () => {
       </div>
       <nav>
         <ul>
-          {!isAuthenticated && <p>Login to see menu</p>}
+          {!isAuthenticated && (
+            <>
+              <li>
+                <NavLink to='/login'>
+                  <TbLogin2 />
+                  <span>Login</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to='/signup'>
+                  <AiOutlineUsergroupAdd />
+                <span>Signup</span>
+                </NavLink>
+              </li>
+            </>
+          )}
           {isAuthenticated && renderMenuItems()}
           {isAuthenticated && (
             <li>

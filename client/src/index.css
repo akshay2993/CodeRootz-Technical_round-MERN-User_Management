@@ -73,6 +73,11 @@ ul {
   cursor: pointer;
   display: flex;
   gap: 1rem;
+  border-radius: 8px;
+}
+
+.sidebar li a.active {
+  background: #b1a4ff;
 }
 
 .main-container {

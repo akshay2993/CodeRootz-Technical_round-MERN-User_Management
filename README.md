@@ -11,7 +11,7 @@ Application Flow:
 3.After Login the user is taken to Home screen: <br />
 <img src="screenshots/home.png" width='650px' />
 
-3.If logged in as Superadmin, the admin can access User-management/Role-management pages****
+3.If logged in as Superadmin, the admin can access User-management/Role-management pages
 <img src="screenshots/User-management.png" width='650px' /> <br />
 <img src="screenshots/role-management.png" width='650px' />
 

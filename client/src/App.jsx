@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Layout from "./components/Layout";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import Home from "./components/Home";
-import UserManagement from "./components/UserManagement";
-import RoleManagement from "./components/RoleManagement";
+import Layout from "./pages/Layout";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Home from "./pages/Home";
+import UserManagement from "./pages/UserManagement";
+import RoleManagement from "./pages/RoleManagement";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AuthProvider from "./store/AuthContext";
 import EditRoleDialogBox from "./components/EditRoleDialogBox";
@@ -26,6 +26,7 @@ const router = createBrowserRouter([
         children: [
             { path: "/user-management", element: <UserManagement /> },
             { path: "/role-management", element: <RoleManagement /> },
+            // { path: "/role-create", element: <RoleCreate /> },
         ]
       }
     ],

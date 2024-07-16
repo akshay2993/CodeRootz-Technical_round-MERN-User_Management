@@ -26,6 +26,7 @@ const Signup = () => {
   return (
     <>
       <form className='auth-form' onSubmit={handleSubmit}>
+      <h1 className="text-2xl text-center mb-2">Signup</h1>
       <div className='form-row'>
       <label htmlFor='name'>Name</label>
       <input type='text' id='name' name='name' placeholder='Full Name' required/>
@@ -38,7 +39,7 @@ const Signup = () => {
 
       <div className='form-row'>
       <label htmlFor='password'>Password</label>
-      <input type='text' id='password' name='password' placeholder='Password' required/>
+      <input type='password' id='password' name='password' placeholder='Password' required/>
       
       <button className='mt-6'>Register</button>
       

@@ -4,11 +4,11 @@ const RoleSchema =  new mongoose.Schema({
     name : {
         type: String,
         required: true,
-        enum: ['superadmin', 'user']
+        // enum: ['superadmin', 'user']
     },
     menus: {
         type: [String],
-        enum: ['Home', 'Profile', 'Settings', 'DummyMenu', 'DummyMenu', 'User Management', 'Role Management']
+        enum: ['Home', 'Profile', 'Settings', 'DummyMenu1', 'DummyMenu2', 'User Management', 'Role Management']
     }
 })
 

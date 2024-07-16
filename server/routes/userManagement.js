@@ -25,8 +25,32 @@ router.get('/users', authenticate('superadmin'), async (req, res) => {
     res.status(200).json(users)
 })
 
-// router.post('/roles', authenticate('superadmin'), async (req, res) => {
-//     const role = await Role.find({})
-//     res.status(200).json(roles)
-// })
+router.put('/users/:userId', authenticate('superadmin'), async (req, res) => {
+  const { userId } = req.params;
+  console.log(userId)
+  const { roleName } = req.body;
+
+  if (!roleName) {
+    return res.status(400).json({ message: 'Role is required' });
+  }
+
+  try {
+    const role = await Role.findOne({name: roleName});
+    console.log(role)
+    if (!role) {
+      return res.status(404).json({ message: 'Role not found' });
+    }
+
+    const user = await User.findByIdAndUpdate(userId, { role: role._id }, { new: true });
+    console.log('user', user)
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+});
+
 export default router

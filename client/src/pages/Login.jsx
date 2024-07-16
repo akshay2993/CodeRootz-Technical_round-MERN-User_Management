@@ -12,13 +12,12 @@ const Login = () => {
     try {
       const formData = new FormData(e.target);
       const userData = Object.fromEntries(formData.entries());
-      // console.log(userData);
 
       const res = await axios.post("http://localhost:3000/api/auth/login", userData);
-      console.log(res);
+      // console.log(res);
       const data = res.data.user
       console.log(data)
-      login(data.name, data.role.name)
+      login(data.name, data.role.name, data.role.menus)
       navigate("/home")
     } catch (error) {
       if(error.response){
@@ -31,6 +30,7 @@ const Login = () => {
   return (
     <>
       <form className="auth-form" onSubmit={handleSubmit}>
+      <h1 className="text-2xl text-center mb-2">Login</h1>
         <div className="form-row">
           <label htmlFor="email">Email</label>
           <input
@@ -45,7 +45,7 @@ const Login = () => {
         <div className="form-row">
           <label htmlFor="password">Password</label>
           <input
-            type="text"
+            type="password"
             id="password"
             name="password"
             placeholder="Password"

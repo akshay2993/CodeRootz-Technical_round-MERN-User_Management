@@ -1,25 +1,41 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import { FiEdit } from 'react-icons/fi'
+import EditUserDialog from '../components/EditUserDialog'
 
 const UserManagement = () => {
     const [users, setUsers] = useState([])
+    const [selectedUser, setSelectedUser] = useState(null)
 
+    const dialog = useRef()
+
+    const fetchUsers = async () => {
+     try {
+       const userData = await axios.get('http://localhost:3000/api/users')
+         console.log(userData.data)
+         setUsers(userData.data)
+     } catch (error) {
+      console.log(error)
+     }
+    }
     useEffect(() => {
-        const fetchUsers = async () => {
-            const userData = await axios.get('http://localhost:3000/api/users')
-            console.log(userData.data)
-            setUsers(userData.data)
-        }
-
         fetchUsers()
     }, [])
+
+    const handleEditClick = (user) => {
+      setSelectedUser(user)
+      if(dialog.current){
+        dialog.current.open()
+
+      }
+    }
     
   return (
     <>
-
+    {selectedUser && <EditUserDialog ref={dialog} user={selectedUser} onclose={fetchUsers} />}
     {users && users.length > 0 ? (
-        <div className="w-full max-w-[820px] mx-auto bg-gray-200 p-6 px-1 md:px-6 rounded-xl">
+      <div className="w-full max-w-[820px] mx-auto bg-gray-200 p-6 px-1 md:px-6 rounded-xl">
+      {/*<h1>Users</h1>*/}
         <table className="w-full border-separate border-spacing-2">
           <thead>
             <tr className="h-10">
@@ -54,7 +70,7 @@ const UserManagement = () => {
                   </td>
                   <td className="border border-slate-600 rounded-md">
                     <div className="flex justify-center gap-x-4 items-center">
-                      <button onClick={() => {}}>
+                      <button onClick={() => handleEditClick(user)}>
                         <FiEdit className="text-xl text-green-700" />
                       </button>
                     </div>

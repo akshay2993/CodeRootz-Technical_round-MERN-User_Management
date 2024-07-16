@@ -11,18 +11,45 @@ import { TbLogout } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../store/AuthContext";
 
+const menuIcons = {
+  home: <FaHome />,
+  profile: <FaClipboardUser />,
+  settings: <IoSettings />,
+  dummymenu1: <MdDisplaySettings />,
+  dummymenu2: <BsFileBarGraphFill />,
+  "user-management": <FaUserEdit />,
+  "role-management": <FaUserLock />,
+};
+
 const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
-
-  const { isAuthenticated, userRole, logout } = useAuthContext();
+  const { isAuthenticated, userRole, logout, roleMenus } = useAuthContext();
 
   const toggleCollapse = () => {
     setCollapsed((prev) => !prev);
   };
 
   const handleLogout = () => {
-    logout()
+    logout();
+  };
+
+  function convertToUrlString(str) {
+    return str.toLowerCase().replace(/\s+/g, "-");
   }
+
+  const renderMenuItems = () => {
+    return roleMenus.map((menuItem) => {
+      const formattedMenuItem = convertToUrlString(menuItem);
+      return (
+        <li key={formattedMenuItem}>
+          <Link to={`/${formattedMenuItem}`}>
+            {menuIcons[formattedMenuItem]}
+            <span>{menuItem}</span>
+          </Link>
+        </li>
+      );
+    });
+  };
 
   return (
     <div className={`sidebar ${collapsed ? "collapsed" : ""}`}>
@@ -33,61 +60,15 @@ const Sidebar = () => {
       </div>
       <nav>
         <ul>
-          <li>
-            <Link to="/home">
-              <FaHome />
-              <span>Home</span>
-            </Link>
-          </li>
+          {!isAuthenticated && <p>Login to see menu</p>}
+          {isAuthenticated && renderMenuItems()}
           {isAuthenticated && (
-            <>
-              <li>
-                <Link to="">
-                  <FaClipboardUser />
-                  <span>Profile</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="">
-                  <IoSettings />
-                  <span>Settings</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="">
-                  <MdDisplaySettings />
-                  <span>DummyMenu</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="">
-                  <BsFileBarGraphFill />
-                  <span>DummyMenu</span>
-                </Link>
-              </li>
-              {isAuthenticated && userRole === "superadmin" ? (
-                <>
-                  <li>
-                    <Link to="/user-management">
-                      <FaUserEdit />
-                      <span>User Management</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/role-management">
-                      <FaUserLock />
-                      <span>Role Management</span>
-                    </Link>
-                  </li>
-                </>
-              ) : null}
-              <li>
-                <button onClick={handleLogout}>
-                  <TbLogout />
-                  <span>Logout</span>
-                </button>
-              </li>
-            </>
+            <li>
+              <button onClick={handleLogout}>
+                <TbLogout />
+                <span>Logout</span>
+              </button>
+            </li>
           )}
         </ul>
       </nav>

@@ -1,5 +1,6 @@
 # CodeRootz-Technical_round-MERN-User_Management
 
-Functionalities remaining:
-1. Role edit/Update
-2. User edit/update
+Application Flow:
+
+1.Shows a Login Screen by default
+[screenshots/login.png](https://github.com/akshay2993/CodeRootz-Technical_round-MERN-User_Management/blob/7c6d80427e39acb712de4e70546fc52b235445fa/screenshots/login.png)

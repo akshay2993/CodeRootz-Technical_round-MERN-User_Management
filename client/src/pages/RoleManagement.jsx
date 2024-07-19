@@ -16,7 +16,7 @@ const RoleManagement = () => {
     try {
       const rolesData = await axios.get("http://localhost:3000/api/roles");
       setRoles(rolesData.data);
-      console.log(rolesData.data);
+      // console.log(rolesData.data);
     } catch (error) {
       console.log(error);
     }

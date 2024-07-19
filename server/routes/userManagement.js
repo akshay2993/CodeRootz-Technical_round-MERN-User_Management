@@ -20,10 +20,12 @@ app.use(cors({
 
 const router = express.Router()
 
+//get all users
 router.get('/users', authenticate('superadmin'), async (req, res) => {
     const users = await User.find().populate('role')
     res.status(200).json(users)
 })
+
 
 router.put('/users/:userId', authenticate('superadmin'), async (req, res) => {
   const { userId } = req.params;

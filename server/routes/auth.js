@@ -80,4 +80,31 @@ router.post("/login", async (req, res) => {
 }
 });
 
+router.post('/logout', async (req, res) => {
+  res.clearCookie('token')
+  res.status(200).json({message: "Signed out successfully!"})
+})
+
+router.get('/protected-route', async (req,res) => {
+  const {token} = req.cookies
+
+  if(!token){
+    return res.status(401).json({ message: "Unauthorized. Log in first!" })
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.SECRET_KEY)
+    const user = await User.findById(decoded.id).populate('role')
+
+    if(!user){
+      return res.status(401).json({ message: "Unauthorized" })
+    }
+    
+    return res.status(200).json(user)
+  } catch (error) {
+    console.error(error.message)    
+    res.status(401).json({ message: "Unauthorized" })
+  }
+})
+
 export default router

@@ -7,19 +7,20 @@ import UserManagement from "./pages/UserManagement";
 import RoleManagement from "./pages/RoleManagement";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AuthProvider from "./store/AuthContext";
-import EditRoleDialogBox from "./components/EditRoleDialogBox";
+import Error from "./pages/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    errorElement: <Error />,
     children: [
       // { index: true, element: <Home /> },
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <Signup /> },
       { path: '/', element: <ProtectedRoute />,
         children: [
-            { path: '/home', element: <Home /> },
+            { index: true, element: <Home /> },
         ]
       },
       { element: <ProtectedRoute requiredRole='superadmin' />,

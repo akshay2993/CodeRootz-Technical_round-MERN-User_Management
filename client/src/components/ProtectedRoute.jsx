@@ -11,6 +11,10 @@ const ProtectedRoute = ({ requiredRole }) => {
       navigate("/login");
     }
 
+    // if(isAuthenticated){
+    //   navigate('/home')
+    // }
+
     if (requiredRole && userRole !== requiredRole) {
       navigate("/");
     }

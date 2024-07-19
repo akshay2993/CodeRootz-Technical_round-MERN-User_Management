@@ -12,7 +12,7 @@ const UserManagement = () => {
     const fetchUsers = async () => {
      try {
        const userData = await axios.get('http://localhost:3000/api/users')
-         console.log(userData.data)
+        //  console.log(userData.data)
          setUsers(userData.data)
      } catch (error) {
       console.log(error)
@@ -26,7 +26,6 @@ const UserManagement = () => {
       setSelectedUser(user)
       if(dialog.current){
         dialog.current.open()
-
       }
     }
     
